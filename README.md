@@ -1,5 +1,7 @@
 # Бот сценарист
 бот-сценарист для telegram на python с нейросетью
+# Логика бота 
+<img src="https://github.com/karukador/scenarist_ai_bot/blob/main/%D0%BB%D0%BE%D0%B3%D0%B8%D0%BA%D0%B0%20%D0%B1%D0%BE%D1%82%D0%B0.png"/>&nbsp;
 # Как использовать
 1) Клонируйте этот репозиторий:
 ```
