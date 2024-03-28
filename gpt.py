@@ -10,6 +10,7 @@ from config import FOLDER_ID
 token = GPT_TOKEN
 folder_id = FOLDER_ID
 
+
 # класс GPT
 class GPT:
     def __init__(self):
@@ -34,13 +35,14 @@ class GPT:
             return "Ошибка ответа. Произошла ошибка на сервере, приходите позже."
         tokens_in_system += tokens
 
-        add_prompt_to_database(user_id, "system", system_content, tokens_in_system, session_id) # добавление сообщения пользователя в базу данных
+        add_prompt_to_database(user_id, "system", system_content, tokens_in_system,
+                               session_id)  # добавление сообщения пользователя в базу данных
 
         tokens_in_user_content = count_tokens([{"role": "user", "text": user_content}])
         tokens_in_user_content += tokens_in_system
         add_prompt_to_database(user_id, "user", user_content, tokens_in_user_content, session_id)
 
-        if tokens_in_user_content > MAX_TOKENS_IN_SESSION: # проверка превышения лимита токенов в сессии
+        if tokens_in_user_content > MAX_TOKENS_IN_SESSION:  # проверка превышения лимита токенов в сессии
             return
         if special_mode:
             assistant_content = find_assistant_text_by_session(user_id, session_id - 1)
