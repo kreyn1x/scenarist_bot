@@ -6,6 +6,7 @@ from config import GPT_TOKEN, FOLDER_ID
 token = GPT_TOKEN
 folder_id = FOLDER_ID
 
+
 # функция подсчёта токенов
 def count_tokens(collection) -> int:
     headers = {
