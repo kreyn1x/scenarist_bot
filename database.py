@@ -2,16 +2,18 @@
 import logging
 import sqlite3
 
+
 # Функция для создания базы данных
 def create_db():
-    connection = sqlite3.connect("sqlite3.db") # Устанавливаем соединение с базой данных
-    connection.close() # Закрываем соединение
-    logging.info("База данных успешно создана") # Выводим сообщение в лог о том, что база данных создана
+    connection = sqlite3.connect("sqlite3.db")  # Устанавливаем соединение с базой данных
+    connection.close()  # Закрываем соединение
+    logging.info("База данных успешно создана")  # Выводим сообщение в лог о том, что база данных создана
+
 
 # Функция для обработки запросов к базе данных
 def process_query(query, params):
-    connection = sqlite3.connect("sqlite3.db") # Устанавливаем соединение с базой данных
-    connection.row_factory = sqlite3.Row # Устанавливаем формат возвращаемых данных
+    connection = sqlite3.connect("sqlite3.db")  # Устанавливаем соединение с базой данных
+    connection.row_factory = sqlite3.Row  # Устанавливаем формат возвращаемых данных
     cur = connection.cursor()
     if not params:
         if 'SELECT' in query:
@@ -23,8 +25,9 @@ def process_query(query, params):
             result = cur.execute(query, tuple(params))
             return list(result)
         cur.execute(query, tuple(params))
-    connection.commit() # Сохраняем изменения в базе данных
-    connection.close() # Закрываем соединение
+    connection.commit()  # Сохраняем изменения в базе данных
+    connection.close()  # Закрываем соединение
+
 
 # Функция для создания таблицы prompts
 def create_prompts_table():
@@ -37,6 +40,7 @@ def create_prompts_table():
     tokens INTEGER DEFAULT 0,
     session_id INTEGER DEFAULT 0);'''
     process_query(query, None)
+
 
 # Функция для создания таблицы settings
 def create_settings_table():
@@ -51,11 +55,13 @@ def create_settings_table():
        processing_answer INTEGER DEFAULT 0) ;'''
     process_query(query, None)
 
+
 # Функция для добавления пользователя в базу данных
 def add_user_to_database(table_name, user_id):
     query = f'''INSERT INTO {table_name} (user_id) VALUES (?);'''
     process_query(query, [user_id])
     logging.info(f"Пользователь с user_id = {user_id} успешно добавлен в базу данных")
+
 
 # Функция для поиска данных пользователя в базе данных
 def find_user_data(table_name, user_id):
@@ -67,11 +73,13 @@ def find_user_data(table_name, user_id):
     logging.error("Не получилось собрать данные пользователя.")
     return result
 
+
 # Функция для обновления данных пользователя в базе данных
 def update_user_data(table_name, user_id, column_name, value):
     query = f'''UPDATE {table_name} SET {column_name} = ? WHERE user_id = ?;'''
     process_query(query, [value, user_id])
     logging.info(f"база данных успешно обновлена, таблица: {table_name}, колонка: {column_name}, user_id: {user_id}")
+
 
 # Функция для подсчета количества пользователей в базе данных
 def count_users():
@@ -80,6 +88,7 @@ def count_users():
     logging.info(f"Успешно подсчитано количество пользователей {counter[0][0]}")
     return counter[0][0]
 
+
 # Функция для поиска текущей сессии пользователя в базе данных
 def find_current_session(user_id):
     query = f'''SELECT COUNT(DISTINCT session_id) FROM prompts WHERE user_id = ?;'''
@@ -87,12 +96,14 @@ def find_current_session(user_id):
     logging.info(f"Текущая сессия для пользователя с user_id: {user_id} успешно найдена: {counter[0][0]}.")
     return counter[0][0]
 
+
 # Функция для поиска промптов пользователя в текущей сессии в базе данных
 def find_prompts_by_session(user_id, session_id):
     query = "SELECT role, text FROM prompts WHERE user_id = ? and session_id = ?"
     prompts = process_query(query, [user_id, session_id])
     logging.info(f"Промпты пользователя с user_id: {user_id} в сессии {session_id} успешно найдены")
     return prompts
+
 
 # Функция для поиска ответа нейросети для пользователя в текущей сессии в базе данных
 def find_assistant_text_by_session(user_id, session_id):
@@ -110,6 +121,7 @@ def find_assistant_text_by_session(user_id, session_id):
         logging.info(f"Не удалось получить ответ нейросети для пользователя с user_id: {user_id} в сессии {session_id}")
     return content
 
+
 # Функция для поиска текста промпта пользователя по роли и user_id в базе данных
 def find_text_by_role_and_user_id(user_id, role):
     query = '''
@@ -126,12 +138,14 @@ def find_text_by_role_and_user_id(user_id, role):
         logging.info(f"Не удалось получить контент для пользователя с user_id: {user_id} от роли: {role}")
     return content
 
+
 # Функция для добавления промпта в базу данных
 def add_prompt_to_database(user_id, role, text, tokens, session_id):
     query = '''INSERT INTO prompts (user_id, role, text, tokens, session_id) VALUES(?, ?, ?, ?, ?)'''
     values = [user_id, role, text, tokens, session_id]
     process_query(query, values)
     logging.info(f"Промпт от пользователя с user_id: {user_id} в сессии {session_id} успешно добавлен в базу данных")
+
 
 # Функция для поиска последнего промпта
 def find_latest_prompt(user_id):
