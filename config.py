@@ -1,4 +1,4 @@
-BOT_TOKEN = "ВАШ BOT_TOKEN"
-ADMIN_ID = ВАШ TELEGRAM_ID
-GPT_TOKEN = "ВАШ IAM_TOKEN"
-FOLDER_ID = 'ВАШ FOLDER_ID'
+BOT_TOKEN = "7077087921:AAE705rEAhC6HBl_OL3HJSHe8LseoMi3TFg"
+ADMIN_ID = 1077853841
+GPT_TOKEN = "t1.9euelZqakJmRnMmbkI7Pkc-ZyZiOiu3rnpWajouXy5jIjsrGjJrJlMiWyM3l8_cUfmNP-e9IEmYN_d3z91QsYU_570gSZg39zef1656VmomOz47GlpHLl4vJzIueiZbN7_zF656VmomOz47GlpHLl4vJzIueiZbNveuelZrHnsmaiZCckI6azMzOno7OmbXehpzRnJCSj4qLmtGLmdKckJKPioua0pKai56bnoue0oye.YU9pip install package_name1, package_name2-46fJQndIrDxD_0n2FZK-RIYisFDQwpb24K6fDsqhv6jcRFYUJGI_CCOzAOviYToo0lp6NxLg34E9mJNTAQ"
+FOLDER_ID = 'b1g3eokp12iu24raakh5'
